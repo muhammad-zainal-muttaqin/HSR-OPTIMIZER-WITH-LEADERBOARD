@@ -7,6 +7,7 @@ import {
 import { Stats } from 'lib/constants/constants'
 import { ShowcaseTabCharacter } from 'lib/tabs/tabShowcase/useShowcaseTabStore'
 import { Character } from 'types/character'
+import { apiUrl } from './client'
 
 type IngestBody = {
   uid: string
@@ -20,7 +21,7 @@ type IngestBody = {
 
 export async function ingestBuild(body: IngestBody) {
   try {
-    const res = await fetch('/api/ingest', {
+    const res = await fetch(apiUrl('/api/ingest'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),

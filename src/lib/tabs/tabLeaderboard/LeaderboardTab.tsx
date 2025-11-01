@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Select, Table, Typography, Flex, Avatar } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { Assets } from 'lib/rendering/assets'
+import { apiUrl } from 'api/client'
 import gameData from 'data/game_data.json' with { type: 'json' }
 
 const REGION_LABELS: Record<string, string> = {
@@ -87,10 +88,10 @@ export default function LeaderboardTab() {
 
   useEffect(() => {
     const refreshData = () => {
-      const url = characterId != null
+      const path = characterId != null
         ? `/api/leaderboard/character/${characterId}?limit=100${region ? `&region=${encodeURIComponent(region)}` : ''}`
         : `/api/leaderboard/global?limit=100${region ? `&region=${encodeURIComponent(region)}` : ''}`
-      fetch(url)
+      fetch(apiUrl(path))
         .then(r => r.json())
         .then((data) => Array.isArray(data) ? setEntries(data.map(normalizeEntry)) : setEntries([]))
         .catch(() => setEntries([]))
