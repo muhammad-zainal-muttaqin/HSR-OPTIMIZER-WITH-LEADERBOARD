@@ -18,6 +18,7 @@ import OptimizerTab from 'lib/tabs/tabOptimizer/OptimizerTab'
 import RelicsTab from 'lib/tabs/tabRelics/RelicsTab'
 import ShowcaseTab from 'lib/tabs/tabShowcase/ShowcaseTab'
 import WarpCalculatorTab from 'lib/tabs/tabWarp/WarpCalculatorTab'
+import LeaderboardTab from 'lib/tabs/tabLeaderboard/LeaderboardTab'
 import WebgpuTab from 'lib/tabs/tabWebgpu/WebgpuTab'
 import { WorkerPool } from 'lib/worker/workerPool'
 import React, {
@@ -48,6 +49,7 @@ const Tabs = () => {
   const webgpuTab = React.useMemo(() => <WebgpuTab />, [])
   const metadataTab = React.useMemo(() => <MetadataTab />, [])
   const benchmarksTab = React.useMemo(() => <BenchmarksTab />, [])
+  const leaderboardTab = React.useMemo(() => <LeaderboardTab />, [])
 
   useEffect(() => {
     let route = PageToRoute[activeKey]
@@ -57,7 +59,6 @@ const Tabs = () => {
         route += `?id=${id}`
       }
     }
-    console.log('Navigating activekey to route', activeKey, route)
     window.history.pushState({}, window.title, route)
 
     if (activeKey == AppPages.OPTIMIZER) {
@@ -81,6 +82,7 @@ const Tabs = () => {
       <TabRenderer activeKey={activeKey} tabKey={AppPages.SHOWCASE} content={showcaseTab} />
       <TabRenderer activeKey={activeKey} tabKey={AppPages.WARP} content={warpCalculatorTab} />
       <TabRenderer activeKey={activeKey} tabKey={AppPages.BENCHMARKS} content={benchmarksTab} />
+      <TabRenderer activeKey={activeKey} tabKey={AppPages.LEADERBOARD} content={leaderboardTab} />
       <TabRenderer activeKey={activeKey} tabKey={AppPages.CHANGELOG} content={changelogTab} />
       <TabRenderer activeKey={activeKey} tabKey={AppPages.WEBGPU_TEST} content={webgpuTab} />
       <TabRenderer activeKey={activeKey} tabKey={AppPages.METADATA_TEST} content={metadataTab} />

@@ -153,7 +153,6 @@ const ShowcaseCustomizationSidebar = forwardRef<ShowcaseCustomizationSidebarRef,
         { color: newColor, colorMode: ShowcaseColorMode.CUSTOM },
       )
 
-      console.log('Set seed color to', newColor)
 
       setColorMode(ShowcaseColorMode.CUSTOM)
       setSeedColor(newColor)
@@ -167,19 +166,16 @@ const ShowcaseCustomizationSidebar = forwardRef<ShowcaseCustomizationSidebarRef,
         { colorMode: newColorMode },
       )
 
-      console.log('Set color mode to', newColorMode)
 
       setColorMode(newColorMode)
     }
 
     function onBrightnessModeChange(darkMode: boolean) {
-      console.log('Set dark mode to', darkMode)
 
       window.store.getState().setSavedSessionKey(SavedSessionKeys.showcaseDarkMode, darkMode)
     }
 
     const onShowUIDChange = (showUID: boolean) => {
-      console.log('Set show UID to', showUID)
 
       window.store
         .getState()
@@ -187,13 +183,11 @@ const ShowcaseCustomizationSidebar = forwardRef<ShowcaseCustomizationSidebarRef,
     }
 
     function onShowcasePreciseSpdChange(preciseSpd: boolean) {
-      console.log('Set precise spd to', preciseSpd)
 
       window.store.getState().setSavedSessionKey(SavedSessionKeys.showcasePreciseSpd, preciseSpd)
     }
 
     function onShowcaseSpdValueChange(spdValue: number) {
-      console.log('Set spd value to', spdValue)
 
       const scoringMetadata = TsUtils.clone(DB.getScoringMetadata(characterId))
       scoringMetadata.stats[Stats.SPD] = spdValue
@@ -214,7 +208,6 @@ const ShowcaseCustomizationSidebar = forwardRef<ShowcaseCustomizationSidebarRef,
     }
 
     function onShowcaseSpdBenchmarkChange(spdBenchmark: number | undefined) {
-      console.log('Set spd benchmark to', spdBenchmark)
 
       const showcaseTemporaryOptionsByCharacter = TsUtils.clone(window.store.getState().showcaseTemporaryOptionsByCharacter)
       if (!showcaseTemporaryOptionsByCharacter[characterId]) showcaseTemporaryOptionsByCharacter[characterId] = {}
@@ -234,8 +227,7 @@ const ShowcaseCustomizationSidebar = forwardRef<ShowcaseCustomizationSidebarRef,
 
     function onShowcaseDeprioritizeBuffsChange(deprioritizeBuffs: boolean) {
       const scoringMetadata = DB.getScoringMetadata(characterId)
-      if (scoringMetadata?.simulation) {
-        console.log('Set deprioritizeBuffs to', deprioritizeBuffs)
+        if (scoringMetadata?.simulation) {
 
         const simulationMetadata = TsUtils.clone(scoringMetadata.simulation)
         simulationMetadata.deprioritizeBuffs = deprioritizeBuffs

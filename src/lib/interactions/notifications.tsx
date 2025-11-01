@@ -16,7 +16,6 @@ export function checkForUpdatesNotification(version: string) {
   // Errors checking for versions shouldn't crash the app
   try {
     const isOutOfDate = !version || semver.lt(version, CURRENT_OPTIMIZER_VERSION)
-    console.log(`Is out of date? ${isOutOfDate}`, version, CURRENT_OPTIMIZER_VERSION)
     if (!isOutOfDate) {
       return
     }

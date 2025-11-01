@@ -177,14 +177,6 @@ export class SearchTree {
   public getBest() {
     const benchmark = this.targetSum == 54 ? 200 : 100
 
-    console.log(
-      '=============',
-      `${this.dimensions}-D ${benchmark}%`,
-      this.bestNode?.measurement,
-      this.measurements,
-      this.mainStats.slice(2).join(' / '),
-      `${Math.floor(this.endTime - this.startTime)}ms`,
-    )
     return this.bestNode!.representative!
   }
 

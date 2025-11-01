@@ -92,7 +92,6 @@ export function StatRow(props: {
   const { valueDisplay, value1000thsPrecision } = getStatRenderValues(value, props.value!, props.stat, props.preciseSpd)
 
   if (!finalStats) {
-    console.log('No final stats')
     return <div></div>
   }
   return (

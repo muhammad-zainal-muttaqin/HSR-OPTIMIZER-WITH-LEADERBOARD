@@ -93,6 +93,8 @@ export const AppPages = {
   WARP: 'WARP',
   BENCHMARKS: 'BENCHMARKS',
 
+  LEADERBOARD: 'LEADERBOARD',
+
   WEBGPU_TEST: 'WEBGPU_TEST',
   METADATA_TEST: 'METADATA_TEST',
 } as const
@@ -115,6 +117,7 @@ export const PageToRoute = {
   [AppPages.CHANGELOG]: `${BASE_PATH}#changelog`,
   [AppPages.WARP]: `${BASE_PATH}#warp`,
   [AppPages.BENCHMARKS]: `${BASE_PATH}#benchmarks`,
+  [AppPages.LEADERBOARD]: `${BASE_PATH}#leaderboard`,
 
   [AppPages.WEBGPU_TEST]: `${BASE_PATH}#webgpu`,
   [AppPages.METADATA_TEST]: `${BASE_PATH}#metadata`,
@@ -126,6 +129,7 @@ export const RouteToPage = {
   [PageToRoute[AppPages.WARP]]: AppPages.WARP,
   [PageToRoute[AppPages.CHANGELOG]]: AppPages.CHANGELOG,
   [PageToRoute[AppPages.BENCHMARKS]]: AppPages.BENCHMARKS,
+  [PageToRoute[AppPages.LEADERBOARD]]: AppPages.LEADERBOARD,
 
   [PageToRoute[AppPages.WEBGPU_TEST]]: AppPages.WEBGPU_TEST,
   [PageToRoute[AppPages.METADATA_TEST]]: AppPages.METADATA_TEST,

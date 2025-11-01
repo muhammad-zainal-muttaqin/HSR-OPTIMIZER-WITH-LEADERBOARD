@@ -145,5 +145,14 @@ playwright/.cache/
 backend/cdk.out/
 backend/infra.js
 
+# prisma local databases
+prisma/dev.db
+prisma/dev.db-journal
+prisma/*.sqlite
+prisma/*.sqlite-journal
+
+# railway CLI metadata
+.railway/
+railway.json
 # game data files
 src/lib/i18n/*.json

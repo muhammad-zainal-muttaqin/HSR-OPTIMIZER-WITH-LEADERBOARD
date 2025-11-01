@@ -14,6 +14,7 @@ import {
   UnorderedListOutlined,
   UploadOutlined,
   UserOutlined,
+  TrophyOutlined,
 } from '@ant-design/icons'
 import {
   Flex,
@@ -66,6 +67,14 @@ const MenuDrawer = () => {
           </Flex>
         ),
         AppPages.SHOWCASE,
+      ),
+      getItem(
+        (
+          <Flex>
+            <TrophyOutlined style={{ marginRight: 5, width: 16 }} /> Leaderboard
+          </Flex>
+        ),
+        AppPages.LEADERBOARD,
       ),
       getItem(
         (

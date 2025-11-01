@@ -79,7 +79,6 @@ export default function ShowcaseTab() {
   if (activeKey != AppPages.SHOWCASE && !availableCharacters?.length) {
     return <></>
   }
-  console.log('======================================================================= RENDER RelicScorerTab')
 
   return (
     <div>
@@ -152,7 +151,6 @@ function CharacterPreviewSelection() {
   }, [selectedCharacter?.id, setScoringAlgorithmFocusCharacter])
 
   function simulateClicked() {
-    console.log('Simulate', selectedCharacter)
     setCharacterModalOpen(true)
     setCharacterModalInitialCharacter(selectedCharacter)
   }

@@ -43,6 +43,7 @@ import { TsUtils } from 'lib/utils/TsUtils'
 import { CharacterId } from 'types/character'
 import { Form } from 'types/form'
 import { LightCone } from 'types/lightCone'
+import { ingestFromShowcase } from '../../../api/ingest'
 
 export const API_ENDPOINT = 'https://9di5b7zvtb.execute-api.us-west-2.amazonaws.com/prod'
 
@@ -105,7 +106,6 @@ export function onCharacterModalOk(form: ShowcaseTabCharacter['form']) {
 
   state.setSelectedCharacter(selectedCharacter)
   state.setAvailableCharacters(availableCharacters)
-  console.log('Modified character', selectedCharacter)
 }
 
 export function importClicked(mode: 'relics' | 'singleCharacter' | 'multiCharacter') {
@@ -126,8 +126,6 @@ export function importClicked(mode: 'relics' | 'singleCharacter' | 'multiCharact
   const newRelics = state.availableCharacters
     ?.flatMap((x) => Object.values(x.equipped))
     .filter((x) => !!x)
-
-  console.log('import clicked! mode:', mode, 'relics:', newRelics)
 
   DB.mergePartialRelicsWithState(newRelics, newCharacters)
   SaveState.delayedSave()
@@ -166,7 +164,6 @@ export function submitForm(form: ShowcaseTabForm) {
     setScorerId,
   } = useShowcaseTabStore.getState()
 
-  console.log('scorerId:', form.scorerId)
   const id = form.scorerId?.trim() ?? ''
 
   if (id.length != 9) {
@@ -203,8 +200,6 @@ export function submitForm(form: ShowcaseTabForm) {
       return response.json() as Promise<APIResponse>
     })
     .then((data) => {
-      console.log(data)
-
       let characters: UnconvertedCharacter[]
       // backup
       if (data.source === 'mihomo') {
@@ -217,9 +212,6 @@ export function submitForm(form: ShowcaseTabForm) {
         Message.error(t('IdLoadError') /* Error loading ID */)
         return
       }
-
-      console.log('characters', characters)
-
       // Remove duplicate characters (the same character can be placed in both one of the first 3 slots and one of the latter 5)
       const converted = characters
         .map((x) => CharacterConverter.convert(x))
@@ -237,6 +229,14 @@ export function submitForm(form: ShowcaseTabForm) {
       setLoading(false)
       Message.success(t('SuccessMsg') /* Successfully loaded profile */)
       window.showcaseTabForm.setFieldValue('scorerId', id)
+      ingestFromShowcase(id, converted)
+        .then((count) => {
+          if (count > 0) {
+            Message.success(`${count} character(s) added to leaderboard`)
+            window.dispatchEvent(new CustomEvent('leaderboard-refresh'))
+          }
+        })
+        .catch(() => {})
     })
     .catch((error) => {
       setTimeout(() => {

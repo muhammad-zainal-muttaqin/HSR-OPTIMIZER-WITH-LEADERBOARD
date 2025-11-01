@@ -4,7 +4,6 @@ import React from 'react'
 export const Message = {
   success: (content: NonNullable<React.ReactNode>, duration: number = 3) => {
     const key = TsUtils.uuid()
-    console.log('Success message:', content)
     void window.messageApi.open({
       key: key,
       type: 'success',

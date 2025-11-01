@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  uid    String @id
+  region String?
+  characters Character[]
+}
+
+model Character {
+  id           Int     @id @default(autoincrement())
+  uid          String
+  characterId  Int
+  level        Int
+  eidolon      Int
+  lightConeId  Int
+  createdAt    DateTime @default(now())
+  user         User   @relation(fields: [uid], references: [uid])
+  builds       Build[]
+
+  @@unique([uid, characterId])
+  @@index([uid, characterId])
+}
+
+model Build {
+  id           Int      @id @default(autoincrement())
+  characterId  Int
+  atk          Decimal?
+  spd          Decimal?
+  critRate     Decimal?
+  critDmg      Decimal?
+  cv           Decimal
+  buildHash    String   @unique
+  createdAt    DateTime @default(now())
+  character    Character @relation(fields: [characterId], references: [id])
+
+  @@index([cv(sort: Desc)])
+  @@index([characterId, cv(sort: Desc)])
+  @@unique([characterId])
+}
+
+

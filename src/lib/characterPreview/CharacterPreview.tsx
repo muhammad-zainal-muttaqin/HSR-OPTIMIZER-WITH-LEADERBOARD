@@ -159,8 +159,6 @@ export function CharacterPreview(props: {
     )
   }
 
-  console.log('======================================================================= RENDER CharacterPreview', source)
-
   function wrappedSetTeamSelectionByCharacter(update: Record<string, string>) {
     setTeamSelectionByCharacter({
       ...teamSelectionByCharacter,
